@@ -52,9 +52,10 @@ class ExchangeWatchDaemon:
             if title_changed:
                 is_revision = True
                 logger.info(f"🔄 Revision indicator detected for {doc_key}: '{title_prev}' -> '{title_curr}'")
-            elif existing.get("content_hash") or existing.get("alert_sent"):
-                # Exact duplicate already processed — skip immediately
+            else:
+                # Exact duplicate already processed in database with unchanged title — skip immediately
                 return
+
 
 
         tracker = LatencyTracker(doc_key)
