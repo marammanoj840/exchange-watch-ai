@@ -1,0 +1,19 @@
+[Unit]
+Description=ExchangeWatch AI — Real-Time NSE/BSE Intelligence Daemon
+After=network.target network-online.target ollama.service
+Wants=network-online.target ollama.service
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/home/ubuntu/exchange-watch-ai
+ExecStart=/home/ubuntu/exchange-watch-ai/venv/bin/python -m app.main
+Restart=always
+RestartSec=5
+Environment=PYTHONUNBUFFERED=1
+EnvironmentFile=-/home/ubuntu/exchange-watch-ai/.env
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
